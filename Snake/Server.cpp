@@ -23,10 +23,14 @@ void Server::run()
 {
 	while (true)
 	{
+		// iterating through each socket
 		for (int i = 0; i < clients.size(); i++)
 		{
+			// if it's the last socket
 			if (i = (clients.size() - 1))
 			{
+				// use this last socket to check if new clients connect to the server
+				// if a new client connected, create a new last socket to check if new clients connect to the server
 				if (listener.accept(*clients[i]) == sf::Socket::Done)
 				{
 					std::cout << "A new client connected to the server!" << std::endl;
@@ -34,8 +38,10 @@ void Server::run()
 					clients[clients.size() - 1]->setBlocking(false);
 				}
 			}
+			// if it's any but the last socket (so a connected client)
 			else
 			{
+				// if anything is received, print it on the screen
 				if (clients[i]->receive(packetToReceive) == sf::Socket::Done)
 				{
 					packetToReceive >> receivedText;
@@ -45,8 +51,6 @@ void Server::run()
 				}
 			}
 		}
-
-
 
 		if (toCloseServer == true)
 		{

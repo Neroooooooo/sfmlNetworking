@@ -5,6 +5,7 @@
 
 int main()
 {
+	// easier for me to copy paste it when both the server and the client have the same ip
 	std::cout << "Your ip: " << sf::IpAddress::getLocalAddress() << std::endl << std::endl;
 
 	std::cout << "Are you a server(s) or a client(c)?\n>";

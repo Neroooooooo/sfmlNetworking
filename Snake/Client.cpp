@@ -20,6 +20,8 @@ Client::~Client()
 
 void Client::run()
 {
+	std::cout << "The client is running..." << std::endl;
+
 	while (true)
 	{
 		std::getline(std::cin, text);

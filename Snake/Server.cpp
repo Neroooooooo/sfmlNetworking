@@ -21,13 +21,15 @@ Server::~Server()
 
 void Server::run()
 {
+	std::cout << "The server is running..." << std::endl;
+
 	while (true)
 	{
 		// iterating through each socket
 		for (int i = 0; i < clients.size(); i++)
 		{
 			// if it's the last socket
-			if (i = (clients.size() - 1))
+			if (i == (clients.size() - 1))
 			{
 				// use this last socket to check if new clients connect to the server
 				// if a new client connected, create a new last socket to check if new clients connect to the server

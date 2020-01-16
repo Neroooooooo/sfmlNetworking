@@ -5,7 +5,7 @@
 Client::Client(std::string ip, int port)
 	: serverIp(ip), serverPort(port)
 {
-	sf::Socket::Status status = socket.connect(sf::IpAddress::getLocalAddress(), serverPort);
+	sf::Socket::Status status = socket.connect(serverIp, serverPort);
 
 	if (status != sf::Socket::Done)
 	{

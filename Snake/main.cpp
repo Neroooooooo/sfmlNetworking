@@ -5,8 +5,9 @@
 
 int main()
 {
-	// easier for me to copy paste it when both the server and the client have the same ip
-	std::cout << "Your ip: " << sf::IpAddress::getLocalAddress() << std::endl << std::endl;
+	// easier for me to copy paste stuff if I have those printed
+	std::cout << "Your local ip: " << sf::IpAddress::getLocalAddress() << std::endl << std::endl;	
+	std::cout << "Your public ip: " << sf::IpAddress::getPublicAddress() << std::endl << std::endl;	
 
 	std::cout << "Are you a server(s) or a client(c)?\n>";
 
@@ -30,6 +31,10 @@ int main()
 		client.run();
 	}
 
+	while (true)
+	{
+
+	}
 
 	return 0;
 }

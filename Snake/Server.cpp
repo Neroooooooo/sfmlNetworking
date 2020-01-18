@@ -10,18 +10,23 @@ Server::Server(int port)
 		std::cout << "The server couldn't listen to the selected port." << std::endl;
 		toCloseServer = true;
 	}
+	else
+	{
+		std::cout << "The server is running..." << std::endl;
+	}
 
 	clients.push_back(new sf::TcpSocket());
 	clients[0]->setBlocking(false);
+	listener.setBlocking(false);
 }
 
 Server::~Server()
 {
+	std::cout << "The server stopped unning..." << std::endl;
 }
 
 void Server::run()
 {
-	std::cout << "The server is running..." << std::endl;
 
 	while (true)
 	{
@@ -40,16 +45,26 @@ void Server::run()
 					clients[clients.size() - 1]->setBlocking(false);
 				}
 			}
-			// if it's any but the last socket (so a connected client)
-			else
+
+			// if it's any socket but the last
+			if (i != (clients.size() - 1))
 			{
-				// if anything is received, print it on the screen
-				if (clients[i]->receive(packetToReceive) == sf::Socket::Done)
+				sf::Socket::Status status;
+
+				do
+				{
+					status = clients[i]->receive(packetToReceive);
+				} while (status == sf::Socket::Status::Partial);
+
+
+				if (status == sf::Socket::Done)
 				{
 					packetToReceive >> receivedText;
 					std::cout << "Message received from the client[";
 					std::cout << clients[i]->getRemoteAddress().toString();
 					std::cout << "]: " << receivedText << std::endl;
+
+					packetToReceive.clear();
 				}
 			}
 		}
@@ -59,4 +74,9 @@ void Server::run()
 			return;
 		}
 	}
+}
+
+void Server::sendToTheRestOfTheClients(int except, sf::Packet packet)
+{
+
 }

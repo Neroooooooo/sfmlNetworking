@@ -2,6 +2,7 @@
 
 #include <SFML/Network.hpp>
 #include <vector>
+#include <thread>
 
 class Server
 {
@@ -10,6 +11,10 @@ public:
 	~Server();
 
 	void run();
+
+private:
+	// not implemented yet, this will send the packet received from client 'except' to all connected clients, but 'except'.
+	void sendToTheRestOfTheClients(int except, sf::Packet packet);
 
 private:
 	// the server tcp listener
@@ -24,6 +29,9 @@ private:
 	// anything received from a client should be stored in this string, to then be displayed on the screen
 	std::string receivedText;
 	sf::Packet packetToReceive;
+
+	// not used yet, will be the packet sent to other clients
+	sf::Packet packetToSend;
 
 	// when this is true, the server closes
 	bool toCloseServer = false;
